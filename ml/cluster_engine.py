@@ -52,7 +52,7 @@ def embed_messages(messages):
 def recommended_eps(method):
     if "fallback" in method:
         return 1.36
-    return 0.4
+    return 1.0  # tuned and tested against real project data -- see report for eps selection analysis
 
 
 def cluster_logs(embeddings, eps=0.6, min_samples=2):
