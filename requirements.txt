@@ -1,0 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+streamlit
+pandas
+scikit-learn
+sentence-transformers
+groq
