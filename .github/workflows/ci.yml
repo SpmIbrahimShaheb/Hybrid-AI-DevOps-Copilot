@@ -1,0 +1,34 @@
+name: CI - Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir -r requirements.txt
+
+      - name: Run pipeline smoke test
+        run: |
+          cd data && python3 generate_logs.py
+          cp logs.db ../ml/
+          cd ../ml && python3 cluster_engine.py
+          cp logs.db ../llm/
+          cd ../llm && python3 -c "import diagnose; print('diagnose.py imports successfully')"
+
+      - name: Build Docker image
+        run: docker build -t ai-devops-copilot .
