@@ -1,3 +1,4 @@
+import os
 """
 dashboard/app.py
 -----------------
@@ -9,7 +10,7 @@ import sqlite3
 import pandas as pd
 import streamlit as st
 
-DB_PATH = "logs.db"
+DB_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "logs.db")
 
 st.set_page_config(
     page_title="Hybrid AI DevOps Copilot",
